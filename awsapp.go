@@ -17,7 +17,7 @@ func InitDynamo(ctx context.Context, tableName string) (*dynamodb.Client, string
 
 	exists, err := dynamo.Exists(ctx, client, tableName)
 	if err != nil {
-		return nil, "", fmt.Errorf("error checking if DynamoDB table exists: %w", err)
+		return nil, "", fmt.Errorf("error checking if dynamodb table exists: %w", err)
 	}
 
 	ctx, cancel := context.WithTimeout(ctx, 5*time.Minute)
