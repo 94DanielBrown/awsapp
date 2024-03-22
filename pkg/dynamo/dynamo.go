@@ -2,9 +2,7 @@ package dynamo
 
 import (
 	"context"
-	"fmt"
 	"log"
-	"time"
 
 	"github.com/94DanielBrown/awsapp/pkg/awsconfig"
 
@@ -77,23 +75,4 @@ func Exists(ctx context.Context, client *dynamodb.Client, tableName string) (boo
 		}
 	}
 	return false, nil
-}
-
-// Wait for dynamodb table to be created
-func Wait(ctx context.Context, client *dynamodb.Client, tableName string) {
-
-	waiter := dynamodb.NewTableExistsWaiter(client, func(t *dynamodb.TableExistsWaiterOptions) {
-		t.MinDelay = 5 * time.Second
-		t.MaxDelay = 30 * time.Second
-	})
-
-	maxWait := 150 * time.Second
-
-	ti := dynamodb.DescribeTableInput{
-		TableName: aws.String(tableName),
-	}
-	err := waiter.Wait(ctx, &ti, maxWait)
-	if err != nil {
-		log.Panic(fmt.Sprintf("time out waiting for table %s to be created: %v", tableName, err))
-	}
 }
