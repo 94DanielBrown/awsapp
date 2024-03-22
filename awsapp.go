@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/9danielbrown/awsapp/pkg/dynamo"
+	"github.com/94DanielBrown/awsapp/pkg/dynamo"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 )
 

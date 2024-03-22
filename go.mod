@@ -2,10 +2,7 @@ module github.com/94DanielBrown/awsapp
 
 go 1.21.5
 
-replace github.com/9DanielBrown/awsapp/ => ./
-
 require (
-	github.com/9danielbrown/awsapp v0.0.0-00010101000000-000000000000
 	github.com/aws/aws-sdk-go-v2 v1.26.0
 	github.com/aws/aws-sdk-go-v2/config v1.27.9
 	github.com/aws/aws-sdk-go-v2/credentials v1.17.9
