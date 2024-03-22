@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/94danielbrown/awsapp/pkg/awsconfig"
+	"github.com/94DanielBrown/awsapp/pkg/awsconfig"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
