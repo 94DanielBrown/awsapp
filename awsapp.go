@@ -9,6 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/dynamodb"
 )
 
+// InitDynamo creates a dynamodb table with specified name using AWS credentials from env variables.
 func InitDynamo(ctx context.Context, tableName string) (*dynamodb.Client, string, error) {
 	client, err := dynamo.Connect()
 	if err != nil {

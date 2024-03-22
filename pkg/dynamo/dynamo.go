@@ -13,7 +13,7 @@ import (
 
 // Connect to dynamodb
 func Connect() (*dynamodb.Client, error) {
-	config, err := awsconfig.NewConfig()
+	config, err := awsconfig.New()
 	if err != nil {
 		log.Fatal(err)
 	}

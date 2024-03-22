@@ -9,7 +9,8 @@ import (
 	"github.com/aws/aws-sdk-go-v2/credentials"
 )
 
-func NewConfig() (aws.Config, error) {
+// New aws config is returned by using env variables for aws access key, secret access key, and region
+func New() (aws.Config, error) {
 	awsAccessKey := os.Getenv("AWS_ACCESS_KEY_ID")
 	awsSecretAccessKey := os.Getenv("AWS_SECRET_ACCESS_KEY")
 	awsRegion := os.Getenv("AWS_REGION")
