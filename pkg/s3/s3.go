@@ -28,8 +28,9 @@ func (c *Client) GeneratePresignedURL(bucketName, key string, expiry time.Durati
 	presigner := s3.NewPresignClient(c.S3)
 
 	putObjectParams := &s3.PutObjectInput{
-		Bucket: aws.String(bucketName),
-		Key:    aws.String(key),
+		Bucket:      aws.String(bucketName),
+		Key:         aws.String(key),
+		ContentType: aws.String("image/jpeg"),
 	}
 
 	resp, err := presigner.PresignPutObject(context.Background(), putObjectParams, func(p *s3.PresignOptions) {
