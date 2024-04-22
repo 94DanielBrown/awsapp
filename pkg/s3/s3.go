@@ -10,18 +10,22 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
-func Connect() (*s3.Client, error) {
+type Client struct {
+	S3 *s3.Client
+}
+
+func Connect() (*Client, error) {
 	config, err := awsconfig.New()
 	if err != nil {
 		log.Fatal(err)
 	}
 	client := s3.NewFromConfig(config)
-	return client, nil
+	return &Client{S3: client}, nil
 }
 
 // GeneratePresignedURL creates a pre-signed URL for uploading an image to S3
-func GeneratePresignedURL(client *s3.Client, bucketName, key string, expiry time.Duration) (string, error) {
-	presigner := s3.NewPresignClient(client)
+func (c *Client) GeneratePresignedURL(bucketName, key string, expiry time.Duration) (string, error) {
+	presigner := s3.NewPresignClient(c.S3)
 
 	putObjectParams := &s3.PutObjectInput{
 		Bucket: aws.String(bucketName),
