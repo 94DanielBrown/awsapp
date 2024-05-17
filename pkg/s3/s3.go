@@ -2,6 +2,7 @@ package s3
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"time"
 
@@ -10,10 +11,16 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
+const (
+	ContentTypeJPEG = "image/jpeg"
+	ContentTypePNG  = "image/png"
+)
+
 type Client struct {
 	S3 *s3.Client
 }
 
+// Connect initializes a new S3 client
 func Connect() (*Client, error) {
 	config, err := awsconfig.New()
 	if err != nil {
@@ -24,13 +31,17 @@ func Connect() (*Client, error) {
 }
 
 // GeneratePresignedURL creates a pre-signed URL for uploading an image to S3
-func (c *Client) GeneratePresignedURL(bucketName, key string, expiry time.Duration) (string, error) {
+// The contentType parameter should be either image/jpeg or image/png
+func (c *Client) GeneratePresignedURL(bucketName, key string, contentType string, expiry time.Duration) (string, error) {
+	if contentType != ContentTypeJPEG && contentType != ContentTypePNG {
+		return "", fmt.Errorf("invalid content type: %s", contentType)
+	}
 	presigner := s3.NewPresignClient(c.S3)
 
 	putObjectParams := &s3.PutObjectInput{
 		Bucket:      aws.String(bucketName),
 		Key:         aws.String(key),
-		ContentType: aws.String("image/jpeg"),
+		ContentType: aws.String(contentType),
 	}
 
 	resp, err := presigner.PresignPutObject(context.Background(), putObjectParams, func(p *s3.PresignOptions) {
