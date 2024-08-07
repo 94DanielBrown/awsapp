@@ -23,6 +23,7 @@ type Client struct {
 // Connect initializes a new S3 client
 func Connect() (*Client, error) {
 	config, err := awsconfig.New()
+	fmt.Println("config.region", config.Region)
 	if err != nil {
 		log.Fatal(err)
 	}
