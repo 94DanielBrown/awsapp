@@ -1,8 +1,6 @@
 branches:
   - name: "main"
 
-repositoryUrl: "https://github.com/94DanielBrown/awsapp.git"
-
 plugins:
   - "@semantic-release/commit-analyzer"
   - "@semantic-release/release-notes-generator"
