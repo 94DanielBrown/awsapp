@@ -10,7 +10,7 @@ import (
 )
 
 // New aws config is returned by using env variables for aws access key, secret access key, and region
-func New() (aws.Config, error) {
+func New() (*aws.Config, error) {
 	awsAccessKey := os.Getenv("AWS_ACCESS_KEY_ID")
 	awsSecretAccessKey := os.Getenv("AWS_SECRET_ACCESS_KEY")
 	awsRegion := os.Getenv("AWS_REGION")
@@ -27,7 +27,7 @@ func New() (aws.Config, error) {
 		config.WithCredentialsProvider(credProvider),
 	)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-	return conf, nil
+	return &conf, nil
 }
